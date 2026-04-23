@@ -1,0 +1,2 @@
+export const WEBHOOK_VERIFIERS = Symbol("WEBHOOK_VERIFIERS");
+export const WEBHOOK_HANDLERS = Symbol("WEBHOOK_HANDLERS");

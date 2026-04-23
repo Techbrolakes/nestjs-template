@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    env_file: .env
+    ports: ["5432:5432"]
+    volumes: ["pg:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+
+  api:
+    build: .
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    env_file: .env
+    environment:
+      PORT: 3000
+    ports: ["3000:3000"]
+    command: sh -c "node dist/database/data-source.js && pnpm run db:migrate:run && node dist/main.js"
+
+volumes:
+  pg:
