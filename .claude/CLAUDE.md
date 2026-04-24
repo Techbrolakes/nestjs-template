@@ -84,6 +84,10 @@ The template ships with TypeORM 0.3 but is designed for swap:
 - Multi-stage Alpine, non-root `app` user. Prod container runs `pnpm db:migrate:run && node dist/main.js`.
 - `docker compose up -d postgres redis` for local infra.
 
+## Commit messages
+
+Follow the convention in [`COMMITS.md`](../COMMITS.md). Conventional Commits with an optional emoji prefix. Enforced locally by commitlint via a husky `commit-msg` hook. When generating a commit message, invoke the `write-commit-message` skill in `.claude/skills/` — it has the procedural version.
+
 ## Claude Code conventions for this repo
 
 - Use `/security-review` before merging anything that touches `auth/`, `common/guards/`, or migrations.

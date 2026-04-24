@@ -2,7 +2,7 @@
 
 Production-ready Nest.js template: TypeScript + PostgreSQL (TypeORM) + Redis + BullMQ + Socket.IO.
 
-Architectural notes, Claude Code harness, and plugin recommendations live in `.claude/CLAUDE.md` and `PLUGINS.md`.
+Architectural notes, Claude Code harness, and plugin recommendations live in `.claude/CLAUDE.md` and `PLUGINS.md`. Commit message convention: [`COMMITS.md`](./COMMITS.md). AI-agent context: [`AGENTS.md`](./AGENTS.md).
 
 ## Quick start
 
@@ -33,16 +33,16 @@ pnpm start:dev
 
 ## Scripts
 
-| Command                   | Purpose                                       |
-| ------------------------- | --------------------------------------------- |
-| `pnpm start:dev`          | Watch mode                                    |
-| `pnpm build`              | Compile                                       |
-| `pnpm test`               | Unit tests                                    |
-| `pnpm test:e2e`           | E2E tests                                     |
+| Command                           | Purpose                                    |
+| --------------------------------- | ------------------------------------------ |
+| `pnpm start:dev`                  | Watch mode                                 |
+| `pnpm build`                      | Compile                                    |
+| `pnpm test`                       | Unit tests                                 |
+| `pnpm test:e2e`                   | E2E tests                                  |
 | `pnpm db:migrate:generate <path>` | Diff entities vs DB; write a new migration |
-| `pnpm db:migrate:run`     | Apply pending migrations                      |
-| `pnpm db:migrate:revert`  | Undo the last migration                       |
-| `pnpm db:migrate:show`    | List migration status                         |
+| `pnpm db:migrate:run`             | Apply pending migrations                   |
+| `pnpm db:migrate:revert`          | Undo the last migration                    |
+| `pnpm db:migrate:show`            | List migration status                      |
 
 ## Layout
 
@@ -76,4 +76,15 @@ Entities live next to the feature module that owns them (`user.entity.ts` in `us
 ```bash
 docker compose up --build
 # Container runs: pnpm db:migrate:run && node dist/main.js
+```
+
+## Commit messages
+
+Conventional Commits with optional emoji prefix. See [`COMMITS.md`](./COMMITS.md). Enforced locally by commitlint via a husky `commit-msg` hook — installed automatically on `pnpm install` through the `prepare` script.
+
+Optional: use the shipped template for interactive commits.
+
+```bash
+git config commit.template .github/.gitmessage
+# Then `git commit` (no -m) opens your editor with the scaffold.
 ```

@@ -1,0 +1,21 @@
+# <emoji> <type>(<scope>): <subject>
+#
+# Body — what changed and WHY. Wrap at 72.
+#
+# Footer — BREAKING CHANGE: <description> | Closes #<issue>
+#
+# ── Types ──────────────────────────────────────────────────────────
+#  ✨ feat      new user-facing capability
+#  🐛 fix       bug fix
+#  🧹 chore     maintenance, deps, tooling
+#  📝 docs      documentation only
+#  ♻️  refactor  internal restructure, no behavior change
+#  ✅ test      tests only
+#  ⚡ perf      performance improvement
+#  🎨 style     formatting, whitespace
+#  🔧 build     build system, Dockerfile
+#  👷 ci        CI/CD pipeline
+#  ⏪ revert    revert a prior commit
+# ───────────────────────────────────────────────────────────────────
+# Subject: lowercase, imperative, no trailing period, ≤100 chars inc. emoji.
+# Full convention: ./COMMITS.md
