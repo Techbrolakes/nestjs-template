@@ -12,6 +12,8 @@ export class RedisIoAdapter extends IoAdapter {
   private readonly config: AppConfig;
   private readonly jwt: JwtService;
   private readonly redis: Redis;
+  private pubClient?: Redis;
+  private subClient?: Redis;
 
   constructor(app: INestApplicationContext) {
     super(app);
@@ -31,6 +33,8 @@ export class RedisIoAdapter extends IoAdapter {
 
     const pub = this.redis.duplicate();
     const sub = this.redis.duplicate();
+    this.pubClient = pub;
+    this.subClient = sub;
     pub.on("error", (err) =>
       this.logger.error({ err }, "socket.io redis pub error"),
     );
@@ -63,6 +67,13 @@ export class RedisIoAdapter extends IoAdapter {
     });
 
     return server;
+  }
+
+  async close(server: Parameters<IoAdapter["close"]>[0]): Promise<void> {
+    await super.close(server);
+    await Promise.allSettled([this.pubClient?.quit(), this.subClient?.quit()]);
+    this.pubClient = undefined;
+    this.subClient = undefined;
   }
 
   private extractToken(socket: Socket): string | null {
