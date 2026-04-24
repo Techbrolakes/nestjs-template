@@ -1,5 +1,5 @@
 import { Processor, WorkerHost } from "@nestjs/bullmq";
-import { Inject, Logger } from "@nestjs/common";
+import { Inject, Logger, OnModuleDestroy } from "@nestjs/common";
 import type { Job } from "bullmq";
 import { WebhookHandler } from "./handlers/handler.interface";
 import { WebhookEventRepository } from "./webhook-event.repository";
@@ -7,7 +7,7 @@ import { webhookJobSchema, type WebhookJob } from "./webhooks.schema";
 import { WEBHOOK_HANDLERS } from "./webhooks.tokens";
 
 @Processor("webhooks")
-export class WebhooksProcessor extends WorkerHost {
+export class WebhooksProcessor extends WorkerHost implements OnModuleDestroy {
   private readonly logger = new Logger(WebhooksProcessor.name);
   private readonly handlers = new Map<string, WebhookHandler>();
 
@@ -17,6 +17,10 @@ export class WebhooksProcessor extends WorkerHost {
   ) {
     super();
     for (const h of handlers) this.handlers.set(h.provider, h);
+  }
+
+  async onModuleDestroy() {
+    await this.worker?.close();
   }
 
   async process(job: Job<WebhookJob>) {
