@@ -24,6 +24,8 @@
     "db:migrate:run": "pnpm typeorm migration:run",
     "db:migrate:revert": "pnpm typeorm migration:revert",
     "db:migrate:show": "pnpm typeorm migration:show",
+    "commitlint": "commitlint --edit",
+    "prepare": "husky",
     "claude": "claude --dangerously-skip-permissions"
   },
   "dependencies": {
@@ -64,6 +66,8 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
     "@eslint/js": "^9.9.1",
     "@nestjs/cli": "^10.4.4",
     "@nestjs/schematics": "^10.1.4",
@@ -81,6 +85,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.9.0",
+    "husky": "^9.1.6",
     "jest": "^29.7.0",
     "prettier": "^3.3.3",
     "socket.io-client": "^4.8.3",
