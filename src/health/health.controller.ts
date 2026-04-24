@@ -7,7 +7,7 @@ import {
 } from "@nestjs/terminus";
 import type Redis from "ioredis";
 import { ApiTags } from "@nestjs/swagger";
-import { REDIS_CLIENT } from "../redis/redis.module";
+import { REDIS_CLIENT } from "../redis/redis.tokens";
 import { Public } from "../common/decorators/public.decorator";
 
 @ApiTags("health")
